@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Script de Atendimento</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="app">
+    <header class="app__header">
+      <!-- Preenchido por js/render.js a partir de js/config.js -->
+      <nav class="nav-links" id="navLinks" aria-label="Sistemas externos"></nav>
+
+      <h1>Script de Atendimento</h1>
+
+      <div class="clock">
+        <span>Hora:</span>
+        <span id="clockValue">--:--:--</span>
+      </div>
+
+      <section class="section">
+        <h2>Chat</h2>
+        <div class="field-grid" id="quickReplies"></div>
+      </section>
+
+      <section class="section">
+        <h2>Senhas e Logins</h2>
+        <div class="field-grid" id="credentials"></div>
+        <p class="section__note">
+          ⚠️ Estas credenciais vêm de <code>js/credentials.js</code>. Veja o README
+          antes de usar isso com dados reais em produção.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Operações</h2>
+        <div class="field-grid" id="operations"></div>
+      </section>
+    </header>
+
+    <main class="attendance-grid" id="attendanceTemplates"></main>
+
+    <footer class="app__footer">
+      <p>criado por &copy; Alvaro Henriques Nt</p>
+    </footer>
+  </div>
+
+  <!-- Ordem importa: config e credentials primeiro, render por último. -->
+  <script src="js/config.js"></script>
+  <script src="js/credentials.js"></script>
+  <script src="js/clipboard.js"></script>
+  <script src="js/clock.js"></script>
+  <script src="js/render.js"></script>
+</body>
+</html>

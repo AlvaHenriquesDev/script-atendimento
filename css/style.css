@@ -1,0 +1,192 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+
+:root {
+  --bg-1: hsl(0, 0%, 24%);
+  --bg-2: hsl(0, 3%, 8%);
+  --bg-3: hsl(0, 0%, 0%);
+  --text: hsl(0, 0%, 100%);
+  --radius: 6px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", Geneva, Tahoma, sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--text);
+  background: linear-gradient(75deg, var(--bg-3), var(--bg-2), var(--bg-1)) fixed;
+}
+
+h1 {
+  font-size: 1.8em;
+  text-align: center;
+  margin: 0.4em 0;
+}
+
+h2 {
+  font-size: 1.3em;
+  margin: 0.6em 0 0.4em;
+}
+
+h3 {
+  font-size: 1.05em;
+  margin-bottom: 0.4em;
+}
+
+.app {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5em;
+}
+
+/* ---- Cabeçalho / navegação de sistemas ---- */
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+  justify-content: center;
+}
+
+.nav-links__item {
+  display: inline-block;
+  padding: 0.5em 0.9em;
+  border: 2px solid var(--text);
+  border-radius: var(--radius);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 0.85em;
+  transition: background 0.3s;
+}
+
+.nav-links__item:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+/* ---- Relógio ---- */
+.clock {
+  display: flex;
+  justify-content: center;
+  gap: 0.5em;
+  font-size: 1.2em;
+  margin: 0.5em 0 1em;
+}
+
+/* ---- Seções (chat, senhas, operações) ---- */
+.section {
+  margin: 1.2em 0;
+}
+
+.section__note {
+  font-size: 0.8em;
+  opacity: 0.75;
+  margin-top: 0.6em;
+}
+
+.section__note code {
+  background: rgba(255, 255, 255, 0.12);
+  padding: 0.1em 0.4em;
+  border-radius: 3px;
+}
+
+.field-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6em;
+}
+
+/* ---- Campo de copiar (input/textarea + botão) ---- */
+.copy-field {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5em;
+}
+
+/* Campos fixos (chat, senhas, comandos): só o botão aparece. */
+.copy-field__input--hidden {
+  display: none;
+}
+
+/* Campos editáveis (relatórios de atendimento): visíveis. */
+.copy-field__input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: var(--radius);
+  padding: 0.6em;
+  font-size: 0.85em;
+  line-height: 1.4;
+  resize: vertical;
+}
+
+.copy-field__input:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 1px;
+}
+
+.attendance-card .copy-field {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.copy-field button {
+  border: 2px solid var(--text);
+  border-radius: var(--radius);
+  padding: 0.5em 0.9em;
+  color: var(--text);
+  background-color: var(--bg-2);
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: background 0.3s, box-shadow 0.2s;
+  white-space: nowrap;
+}
+
+.copy-field button:hover {
+  box-shadow: 2px 2px rgba(255, 255, 255, 0.5);
+  background: linear-gradient(75deg, var(--bg-3), var(--bg-2), var(--bg-1));
+}
+
+.copy-field button:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* ---- Cards de atendimento (textareas grandes) ---- */
+.attendance-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2em;
+  justify-content: center;
+  margin-top: 1.5em;
+}
+
+.attendance-card {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius);
+  padding: 1em;
+  min-width: 260px;
+}
+
+.app__footer {
+  text-align: center;
+  margin-top: 2em;
+  padding-top: 1em;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  opacity: 0.8;
+  font-size: 0.85em;
+}
+
+/* ---- Responsivo ---- */
+@media (max-width: 640px) {
+  .app {
+    padding: 1em;
+  }
+  h1 {
+    font-size: 1.4em;
+  }
+}
