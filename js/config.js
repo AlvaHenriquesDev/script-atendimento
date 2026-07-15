@@ -38,7 +38,7 @@ var LATENCY_TESTS = [
 // Modelo de abertura de O.S. (editável — o atendente preenche CTO/PORTA/OBS).
 var SERVICE_ORDER_TEMPLATE = {
   id: "os",
-  label: "O.S.",
+  label: "Script O.S.",
   value:
     "DESCONEXÃO O.N.U. (CHECAR CABEAMENTO E VERIFICAR CONDIÇÕES DE USO DOS EQUIPAMENTOS DA VOCÊ TELECOM).\n" +
     "CTO:\n" +

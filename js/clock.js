@@ -1,18 +1,16 @@
 // ============================================================
 // Relógio — substitui horas.js.
-// A função verificarHorario() do original não fazia nada (alarme nunca
-// implementado); foi removida. Se quiser reintroduzir um alarme, dá pra
-// adicionar uma checagem de horaAtual/minutoAtual dentro de tick().
+// Versão ES6 moderna, mantendo compatibilidade direta no navegador (file://).
 // ============================================================
 
-function tick() {
-  var now = new Date();
-  var pad = function (n) { return n.toString().padStart(2, "0"); };
-  var horario = pad(now.getHours()) + ":" + pad(now.getMinutes()) + ":" + pad(now.getSeconds());
+const tick = () => {
+  const now = new Date();
+  const pad = (n) => n.toString().padStart(2, "0");
+  const horario = `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
 
-  var el = document.getElementById("clockValue");
+  const el = document.getElementById("clockValue");
   if (el) el.textContent = horario;
-}
+};
 
 tick();
 setInterval(tick, 1000);

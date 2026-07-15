@@ -17,6 +17,6 @@ var CREDENTIALS = {
   password: "u9noz52e",
   gponLogin: "AdminGPON",
   gponPassword: "@7zypt94b23!@#",
-  datacomUser: "user",
-  datacomPassword: "AdminGPON",
+  mikrotik1: "AdminGPON",
+  mikrotik2: "OmPsJDY6CzGS",
 };

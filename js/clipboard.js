@@ -1,7 +1,6 @@
 // ============================================================
-// Substitui as ~15 funções repetidas (copy1, copy2, ams, login,
-// password, logGpon...) do clipboard.js original por UMA função
-// genérica, usada por qualquer campo criado em render.js.
+// Substitui as funções repetidas por UMA função genérica de copiar.
+// Versão ES6 moderna, mantendo compatibilidade direta no navegador (file://).
 // ============================================================
 
 /**
@@ -11,20 +10,18 @@
  * @param {string} [opts.confirmMessage] - se definido, pede confirm() antes de copiar
  * @param {function} [opts.onSuccess] - chamado após copiar com sucesso
  */
-function copyToClipboard(text, opts) {
-  opts = opts || {};
-
+const copyToClipboard = (text, opts = {}) => {
   if (opts.confirmMessage && !window.confirm(opts.confirmMessage)) {
     return;
   }
 
   navigator.clipboard.writeText(text).then(
-    function () {
+    () => {
       if (opts.onSuccess) opts.onSuccess();
     },
-    function (err) {
+    (err) => {
       console.error("Falha ao copiar para a área de transferência:", err);
       alert("Não foi possível copiar automaticamente. Selecione o texto manualmente.");
     }
   );
-}
+};
