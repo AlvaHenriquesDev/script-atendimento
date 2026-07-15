@@ -46,11 +46,11 @@
         <div class="settings-grid">
           <div class="settings-field">
             <label for="opName">Nome do Operador:</label>
-            <input type="text" id="opName" placeholder="Ex: Alvaro Henriques">
+            <input type="text" id="opName" placeholder="Ex: Seu Nome">
           </div>
           <div class="settings-field">
             <label for="opRole">Cargo/Setor:</label>
-            <input type="text" id="opRole" placeholder="Ex: Suporte N3">
+            <input type="text" id="opRole" placeholder="Ex: Assistente NOC">
           </div>
         </div>
         <div class="settings-actions">
@@ -62,6 +62,9 @@
       <section class="section" id="secQuickReplies">
         <h2>Chat (Respostas Rápidas)</h2>
         <div class="field-grid" id="quickReplies"></div>
+        <p class="section__note">
+          ⚠️ Para agilidade no atendimento Digital (Akiva e DigiSac)
+        </p>
       </section>
 
       <section class="section" id="secOperations">
@@ -73,7 +76,7 @@
         <h2>Senhas e Logins</h2>
         <div class="field-grid" id="credentials"></div>
         <p class="section__note">
-          ⚠️ Estas credenciais vêm de <code>js/credentials.js</code>. Veja o README
+          ⚠️ Pode alterar manualmente no arquivo <code>js/credentials.js</code>. Veja o README
           antes de usar isso com dados reais em produção.
         </p>
       </section>
@@ -109,6 +112,10 @@
         <div class="modal-field">
           <label for="pwdMikrotik2">Mikrotik 2:</label>
           <input type="password" id="pwdMikrotik2" placeholder="Digite a senha do Mikrotik 2">
+        </div>
+        <div class="modal-field">
+          <label for="pwdAlmoxerifado">Almoxerifado:</label>
+          <input type="password" id="pwdAlmoxerifado" placeholder="Digite a senha do Almoxerifado">
         </div>
       </div>
       <div class="modal-actions">

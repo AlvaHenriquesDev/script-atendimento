@@ -106,7 +106,8 @@ const createCredentialField = (cfg) => {
   const idLower = cfg.id.toLowerCase();
   const isPassword = idLower.includes("password") || idLower.includes("senha") || 
                      labelLower.includes("senha") || labelLower.includes("password") ||
-                     idLower.includes("mikrotik") || labelLower.includes("mikrotik");
+                     idLower.includes("mikrotik") || labelLower.includes("mikrotik") ||
+                     idLower.includes("almoxerifado") || labelLower.includes("almoxerifado");
   
   let masked = isPassword;
 
@@ -196,6 +197,7 @@ const renderCredentials = () => {
     { id: "gponPassword", label: "Senha GPON", value: CREDENTIALS.gponPassword },
     { id: "mikrotik1", label: "Mikrotik 1", value: CREDENTIALS.mikrotik1 },
     { id: "mikrotik2", label: "Mikrotik 2", value: CREDENTIALS.mikrotik2 },
+    { id: "almoxerifado", label: "Almoxerifado", value: CREDENTIALS.almoxerifado },
   ];
   creds.forEach((cred) => {
     container.appendChild(createCredentialField(cred));
@@ -264,11 +266,13 @@ const loadSessionCredentials = () => {
   const gpon = localStorage.getItem("session_gpon_password");
   const mk1 = localStorage.getItem("session_mikrotik1");
   const mk2 = localStorage.getItem("session_mikrotik2");
+  const alm = localStorage.getItem("session_almoxerifado");
 
   if (ams !== null) CREDENTIALS.password = ams;
   if (gpon !== null) CREDENTIALS.gponPassword = gpon;
   if (mk1 !== null) CREDENTIALS.mikrotik1 = mk1;
   if (mk2 !== null) CREDENTIALS.mikrotik2 = mk2;
+  if (alm !== null) CREDENTIALS.almoxerifado = alm;
 };
 
 // Inicializa o Painel de Configurações do Operador
@@ -330,14 +334,16 @@ const initPasswordsModal = () => {
   const inputGpon = document.getElementById("pwdGpon");
   const inputMk1 = document.getElementById("pwdMikrotik1");
   const inputMk2 = document.getElementById("pwdMikrotik2");
+  const inputAlm = document.getElementById("pwdAlmoxerifado");
 
-  if (!modal || !btnSave || !btnCancel || !inputAms || !inputGpon || !inputMk1 || !inputMk2) return;
+  if (!modal || !btnSave || !btnCancel || !inputAms || !inputGpon || !inputMk1 || !inputMk2 || !inputAlm) return;
 
   const openModal = () => {
     inputAms.value = CREDENTIALS.password;
     inputGpon.value = CREDENTIALS.gponPassword;
     inputMk1.value = CREDENTIALS.mikrotik1;
     inputMk2.value = CREDENTIALS.mikrotik2;
+    inputAlm.value = CREDENTIALS.almoxerifado;
     modal.classList.remove("hidden");
   };
 
@@ -359,8 +365,9 @@ const initPasswordsModal = () => {
     const gpon = inputGpon.value.trim();
     const mk1 = inputMk1.value.trim();
     const mk2 = inputMk2.value.trim();
+    const alm = inputAlm.value.trim();
 
-    if (!ams || !gpon || !mk1 || !mk2) {
+    if (!ams || !gpon || !mk1 || !mk2 || !alm) {
       showToast("Erro", "Por favor, preencha todas as senhas.", "info");
       return;
     }
@@ -369,11 +376,13 @@ const initPasswordsModal = () => {
     localStorage.setItem("session_gpon_password", gpon);
     localStorage.setItem("session_mikrotik1", mk1);
     localStorage.setItem("session_mikrotik2", mk2);
+    localStorage.setItem("session_almoxerifado", alm);
 
     CREDENTIALS.password = ams;
     CREDENTIALS.gponPassword = gpon;
     CREDENTIALS.mikrotik1 = mk1;
     CREDENTIALS.mikrotik2 = mk2;
+    CREDENTIALS.almoxerifado = alm;
 
     showToast("Salvo!", "Senhas da sessão atualizadas.", "success");
     closeModal();

@@ -9,4 +9,5 @@ var CREDENTIALS = {
   gponPassword: "********",
   mikrotik1: "********",
   mikrotik2: "********",
+  almoxerifado: "********",
 };

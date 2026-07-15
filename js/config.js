@@ -16,7 +16,8 @@ var EXTERNAL_LINKS = [
   },
   { label: "GLPI", url: "https://glpi.vocetelecom.vc/glpi" },
   { label: "GRAFANA", url: "http://10.2.199.7:3000/" },
-  { label: "Guia RB", url: "./guia_rb.html" },
+  { label: "Guia MESH", url: "http://alvahenriquesdev.github.io/guias-corporativos" },
+{ label: "Teste", url: "http://google.com"}
 ];
 
 // Respostas rápidas de chat. "editable: false" = campo fixo, oculto,
@@ -54,7 +55,7 @@ var ATTENDANCE_META = {
 };
 
 function attendanceHeader() {
-  return "OPERADOR: " + ATTENDANCE_META.operador + "\nCARGO: " + ATTENDANCE_META.cargo + "\nCANAL DE ATENDIMENTO:\n\n";
+  return "OPERADOR: " + ATTENDANCE_META.operador + "\nCARGO: " + ATTENDANCE_META.cargo;
 }
 
 // Modelos de registro de atendimento (os 3 campos + WhatsApp).
@@ -101,7 +102,8 @@ var WHATSAPP_TEMPLATE = {
   id: "osZap",
   label: "Script WhatsApp",
   value:
-    "*ABERTA O.S\n" +
+    "ATENÇÂO! CLIENTE CORPORATIVO\n" +
+    "*ABERTA O.S*\n" +
     "PROTOCOLO:\n" +
     "CLIENTE:\n" +
     "PLANO:\n" +
