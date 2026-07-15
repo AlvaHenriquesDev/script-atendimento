@@ -17,7 +17,7 @@ var EXTERNAL_LINKS = [
   { label: "GLPI", url: "https://glpi.vocetelecom.vc/glpi" },
   { label: "GRAFANA", url: "http://10.2.199.7:3000/" },
   { label: "Guia MESH", url: "http://alvahenriquesdev.github.io/guias-corporativos" },
-{ label: "Teste", url: "http://google.com"}
+{ label: "Plantão", url: "https://docs.google.com/spreadsheets/d/1bYWbrM1x1eMJjCK22ty05zyFBj7j5hg4/edit?pli=1&gid=1040812121#gid=1040812121"}
 ];
 
 // Respostas rápidas de chat. "editable: false" = campo fixo, oculto,
