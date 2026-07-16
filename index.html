@@ -28,7 +28,7 @@
           <input type="text" id="searchInput" placeholder="Pesquisar respostas, credenciais ou comandos..." aria-label="Pesquisar">
         </div>
         
-        <button type="button" class="btn-settings" id="btnPasswords" title="Atualizar Senhas da Sessão">
+        <button type="button" class="btn-settings" id="btnPasswords" title="Configuração Inicial (Operador / Login AMS / Senha)">
           <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2l-2 2m-7.61 7.61a5.5 5.5 0 1 1-7.778 7.778 5.5 5.5 0 0 1 7.777-7.777zm0 0L15.5 7.5m0 0l3 3L22 7l-3-3m-3.5 3.5L19 4"></path></svg>
         </button>
         
@@ -85,37 +85,29 @@
     <main class="attendance-grid" id="attendanceTemplates"></main>
 
     <footer class="app__footer">
-      <p>criado por &copy; Alvaro Henriques Nt</p>
+      <p>Desenvolvido por &copy; Alvaro Henriques Nt</p>
     </footer>
   </div>
 
-  <!-- Modal de Senhas de Atendimento (inicializado oculto) -->
+  <!-- Modal de Configuração Inicial (inicializado oculto) -->
   <div class="modal-overlay hidden" id="passwordsModal">
     <div class="modal-card">
       <div class="modal-card__header">
-        <h3>Senhas de Atendimento</h3>
-        <p class="modal-card__subtitle">Configure as senhas para a sessão atual</p>
+        <h3>Configuração Inicial</h3>
+        <p class="modal-card__subtitle">Confirme seus dados para a sessão atual</p>
       </div>
       <div class="modal-grid">
         <div class="modal-field">
+          <label for="pwdOperador">Operador:</label>
+          <input type="text" id="pwdOperador" placeholder="Ex: Seu Nome">
+        </div>
+        <div class="modal-field">
+          <label for="pwdAmsLogin">Login (AMS):</label>
+          <input type="text" id="pwdAmsLogin" placeholder="Digite o login AMS">
+        </div>
+        <div class="modal-field">
           <label for="pwdAms">Senha (AMS):</label>
           <input type="password" id="pwdAms" placeholder="Digite a senha AMS">
-        </div>
-        <div class="modal-field">
-          <label for="pwdGpon">Senha GPON:</label>
-          <input type="password" id="pwdGpon" placeholder="Digite a senha GPON">
-        </div>
-        <div class="modal-field">
-          <label for="pwdMikrotik1">Mikrotik 1:</label>
-          <input type="password" id="pwdMikrotik1" placeholder="Digite a senha do Mikrotik 1">
-        </div>
-        <div class="modal-field">
-          <label for="pwdMikrotik2">Mikrotik 2:</label>
-          <input type="password" id="pwdMikrotik2" placeholder="Digite a senha do Mikrotik 2">
-        </div>
-        <div class="modal-field">
-          <label for="pwdAlmoxerifado">Almoxerifado:</label>
-          <input type="password" id="pwdAlmoxerifado" placeholder="Digite a senha do Almoxerifado">
         </div>
       </div>
       <div class="modal-actions">
@@ -127,7 +119,6 @@
 
   <div id="toastContainer" class="toast-container" aria-live="polite"></div>
 
-  <!-- Ordem importa: config e credentials primeiro, render por último. -->
   <script src="js/config.js"></script>
   <script src="js/credentials.js"></script>
   <script src="js/clipboard.js"></script>

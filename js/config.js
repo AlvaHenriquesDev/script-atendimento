@@ -59,12 +59,15 @@ function attendanceHeader() {
 }
 
 // Modelos de registro de atendimento (os 3 campos + WhatsApp).
+// Guardamos apenas o "body" (o texto abaixo do cabeçalho) — o cabeçalho
+// (OPERADOR/CARGO) é montado em tempo de renderização por attendanceHeader(),
+// assim ele sempre reflete o valor atual de ATTENDANCE_META, mesmo depois de
+// editar opName/opRole no painel de configurações.
 var ATTENDANCE_TEMPLATES = [
   {
     id: "att1",
     label: "Campo 1 — Lentidão",
-    value:
-      attendanceHeader() +
+    body:
       "RELATO CLIENTE:\n" +
       "- INFORMOU LENTIDÃO DE ACESSO\n\n" +
       "ANALISE E PROCEDIMENTOS:\n" +
@@ -79,8 +82,7 @@ var ATTENDANCE_TEMPLATES = [
   {
     id: "att2",
     label: "Campo 2 — Desconexão",
-    value:
-      attendanceHeader() +
+    body:
       "RELATO CLIENTE:\n" +
       "- DESCONEXÃO\n\n" +
       "ANALISE E PROCEDIMENTOS:\n" +
@@ -94,7 +96,7 @@ var ATTENDANCE_TEMPLATES = [
   {
     id: "att3",
     label: "Campo 3 — Genérico",
-    value: attendanceHeader() + "SOLICITAÇÃO DO CLIENTE:\n\nPROCEDIMENTOS:",
+    body: "SOLICITAÇÃO DO CLIENTE:\n\nPROCEDIMENTOS:",
   },
 ];
 

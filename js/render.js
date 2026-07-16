@@ -34,18 +34,15 @@ const showToast = (title, message, type = "info") => {
   }, 3000);
 };
 
-// Reconstrói dinamicamente o valor do template se o cabeçalho mudar
+// Reconstrói dinamicamente o valor do template com o cabeçalho atual
+// (OPERADOR/CARGO). Templates com "body" (Campos 1/2/3) sempre remontam o
+// cabeçalho na hora de renderizar; os demais (O.S., WhatsApp) não têm
+// cabeçalho e retornam seu "value" fixo sem alteração.
 const getUpdatedTemplateValue = (template) => {
-  const val = template.value;
-  if (val.startsWith("OPERADOR:")) {
-    const splitKey = "\nCANAL DE ATENDIMENTO:\n\n";
-    const index = val.indexOf(splitKey);
-    if (index !== -1) {
-      const body = val.substring(index + splitKey.length);
-      return attendanceHeader() + body;
-    }
+  if (typeof template.body === "string") {
+    return attendanceHeader() + "\n\n" + template.body;
   }
-  return val;
+  return template.value;
 };
 
 /**
@@ -262,12 +259,14 @@ const loadSettings = () => {
 
 // Carrega senhas da sessão salvos no localStorage
 const loadSessionCredentials = () => {
+  const amsLogin = localStorage.getItem("session_ams_login");
   const ams = localStorage.getItem("session_ams_password");
   const gpon = localStorage.getItem("session_gpon_password");
   const mk1 = localStorage.getItem("session_mikrotik1");
   const mk2 = localStorage.getItem("session_mikrotik2");
   const alm = localStorage.getItem("session_almoxerifado");
 
+  if (amsLogin !== null) CREDENTIALS.login = amsLogin;
   if (ams !== null) CREDENTIALS.password = ams;
   if (gpon !== null) CREDENTIALS.gponPassword = gpon;
   if (mk1 !== null) CREDENTIALS.mikrotik1 = mk1;
@@ -323,27 +322,23 @@ const initSettingsPanel = () => {
   });
 };
 
-// Inicializa o modal de Senhas de Inicialização
+// Inicializa o modal de Configuração Inicial (Operador + Login/Senha AMS)
 const initPasswordsModal = () => {
   const modal = document.getElementById("passwordsModal");
   const btnTrigger = document.getElementById("btnPasswords");
   const btnSave = document.getElementById("btnSavePasswords");
   const btnCancel = document.getElementById("btnCancelPasswords");
 
+  const inputOperador = document.getElementById("pwdOperador");
+  const inputAmsLogin = document.getElementById("pwdAmsLogin");
   const inputAms = document.getElementById("pwdAms");
-  const inputGpon = document.getElementById("pwdGpon");
-  const inputMk1 = document.getElementById("pwdMikrotik1");
-  const inputMk2 = document.getElementById("pwdMikrotik2");
-  const inputAlm = document.getElementById("pwdAlmoxerifado");
 
-  if (!modal || !btnSave || !btnCancel || !inputAms || !inputGpon || !inputMk1 || !inputMk2 || !inputAlm) return;
+  if (!modal || !btnSave || !btnCancel || !inputOperador || !inputAmsLogin || !inputAms) return;
 
   const openModal = () => {
+    inputOperador.value = ATTENDANCE_META.operador;
+    inputAmsLogin.value = CREDENTIALS.login;
     inputAms.value = CREDENTIALS.password;
-    inputGpon.value = CREDENTIALS.gponPassword;
-    inputMk1.value = CREDENTIALS.mikrotik1;
-    inputMk2.value = CREDENTIALS.mikrotik2;
-    inputAlm.value = CREDENTIALS.almoxerifado;
     modal.classList.remove("hidden");
   };
 
@@ -361,33 +356,28 @@ const initPasswordsModal = () => {
   btnCancel.addEventListener("click", closeModal);
 
   btnSave.addEventListener("click", () => {
+    const operador = inputOperador.value.trim();
+    const amsLogin = inputAmsLogin.value.trim();
     const ams = inputAms.value.trim();
-    const gpon = inputGpon.value.trim();
-    const mk1 = inputMk1.value.trim();
-    const mk2 = inputMk2.value.trim();
-    const alm = inputAlm.value.trim();
 
-    if (!ams || !gpon || !mk1 || !mk2 || !alm) {
-      showToast("Erro", "Por favor, preencha todas as senhas.", "info");
+    if (!operador || !amsLogin || !ams) {
+      showToast("Erro", "Por favor, preencha todos os campos.", "info");
       return;
     }
 
+    localStorage.setItem("attendance_operador", operador);
+    localStorage.setItem("session_ams_login", amsLogin);
     localStorage.setItem("session_ams_password", ams);
-    localStorage.setItem("session_gpon_password", gpon);
-    localStorage.setItem("session_mikrotik1", mk1);
-    localStorage.setItem("session_mikrotik2", mk2);
-    localStorage.setItem("session_almoxerifado", alm);
 
+    ATTENDANCE_META.operador = operador;
+    CREDENTIALS.login = amsLogin;
     CREDENTIALS.password = ams;
-    CREDENTIALS.gponPassword = gpon;
-    CREDENTIALS.mikrotik1 = mk1;
-    CREDENTIALS.mikrotik2 = mk2;
-    CREDENTIALS.almoxerifado = alm;
 
-    showToast("Salvo!", "Senhas da sessão atualizadas.", "success");
+    showToast("Salvo!", "Informações da sessão atualizadas.", "success");
     closeModal();
 
-    // Re-renderizar credenciais e operações
+    // Re-renderizar credenciais, operações e templates (o operador afeta
+    // o cabeçalho dos Campos 1/2/3)
     const credContainer = document.getElementById("credentials");
     if (credContainer) {
       credContainer.innerHTML = "";
@@ -397,6 +387,11 @@ const initPasswordsModal = () => {
     if (opContainer) {
       opContainer.innerHTML = "";
       renderOperations();
+    }
+    const attContainer = document.getElementById("attendanceTemplates");
+    if (attContainer) {
+      attContainer.innerHTML = "";
+      renderAttendanceTemplates();
     }
   });
 };
