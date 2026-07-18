@@ -13,11 +13,11 @@
 
 var CREDENTIALS = {
   amsIp: "10.2.199.74",
-  login: "alvaro.neto",
-  password: "hBzE6!8B&6£4",
+  login: "SEU.NOME",
+  password: "INSERIR SENHA AMS",
   gponLogin: "AdminGPON",
-  gponPassword: "@7zypt94b23!@#",
-  mikrotik1: "7kwi387bgnk12",
-  mikrotik2: "S38LxUyUIcnmKz",
-  almoxerifado: "lwi387nbg",
+  gponPassword: "INSERIR SENHA GPON",
+  mikrotik1: "INSERIR K12",
+  mikrotik2: "INSERIR KZ",
+  almoxerifado: "INSERIR BG",
 };
