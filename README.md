@@ -10,7 +10,7 @@ Basta **dar dois cliques em `index.html`** para abrir no seu navegador. Tudo rod
 
 O painel foi completamente reformulado com foco em produtividade, segurança visual e design premium:
 1. **Design Glassmorphism Cyber-Dark:** Estilo visual moderno com efeito de vidro fosco (`backdrop-filter: blur`), gradientes azuis/roxos profundos, luzes neon e micro-animações.
-2. **Setup de Senhas na Inicialização (Modal):** Ao abrir a página, um modal centralizado pergunta as senhas da sessão (AMS, GPON, Mikrotik 1, Mikrotik 2) para carregar no painel. Os dados são persistidos de forma segura no navegador (`localStorage`) para evitar digitação repetida nas próximas vezes.
+2. **Modal Inicial de Operador e Login AMS:** Ao abrir a página, um modal centralizado solicita apenas o **Nome do Operador** e o **Login AMS** da sessão. Os dados são persistidos no navegador (`localStorage`) para evitar digitação repetida nas próximas vezes.
 3. **Controle de Senhas (Show/Hide):** Credenciais confidenciais são mascaradas por padrão (`••••••••`). O operador pode usar o ícone de "olho" para revelá-las. Clicar no botão copia o valor real diretamente para a área de transferência.
 4. **Notificações Flutuantes (Toasts):** Um balão animado no canto da tela confirma exatamente qual informação foi copiada com sucesso, incluindo uma barra de progresso de autoclose.
 5. **Barra de Pesquisa Dinâmica:** Permite filtrar instantaneamente respostas rápidas, credenciais, comandos e cards de relatórios à medida que você digita. Seções sem correspondência são ocultadas automaticamente.
@@ -18,7 +18,24 @@ O painel foi completamente reformulado com foco em produtividade, segurança vis
 
 ---
 
-## 📂 Estrutura de Arquivos
+## 🩹 Changelog / Correções Recentes
+
+### 1. Correção: cabeçalho dos templates não atualizava com o Operador salvo
+- **Arquivo:** `js/render.js` → função `getUpdatedTemplateValue`
+- **Problema:** a função procurava o marcador de texto `"CANAL DE ATENDIMENTO:"` para separar cabeçalho e corpo do template, mas esse texto não existe em nenhum modelo de `js/config.js`. Como resultado, `indexOf` sempre retornava `-1` e a função devolvia o valor estático original — ou seja, o Nome do Operador e o Cargo salvos via `loadSettings()`/painel de configurações **não** refletiam nos templates renderizados.
+- **Correção:** a função agora localiza o fim do cabeçalho pelo primeiro `"\n\n"` do texto (que sempre marca o fim de `"OPERADOR: ...\nCARGO: ...\n\n"`), reconstruindo corretamente o cabeçalho com os dados atuais de `ATTENDANCE_META` toda vez que os templates são renderizados.
+
+### 2. Simplificação do Modal Inicial (Operador + Login AMS)
+- **Arquivos:** `index.html` (`#passwordsModal`) e `js/render.js` (`initPasswordsModal`, `loadSessionCredentials`)
+- **Antes:** o modal exibido na abertura da página solicitava 5 senhas (AMS, GPON, Mikrotik 1, Mikrotik 2, Almoxerifado).
+- **Depois:** o modal passou a solicitar apenas dois campos:
+  - **Nome do Operador** (`#modalOpName`) — salvo em `localStorage` na chave `attendance_operador` e refletido em `ATTENDANCE_META.operador` (mesma chave já usada pelo painel de configurações, evitando duplicidade).
+  - **Login AMS** (`#modalAmsLogin`) — salvo em `localStorage` na chave `session_ams_login` e refletido em `CREDENTIALS.login`.
+- Ao salvar, o modal agora também re-renderiza os templates de atendimento, credenciais e operações para refletir imediatamente os novos valores.
+- `loadSessionCredentials()` foi atualizada para restaurar `session_ams_login` em `CREDENTIALS.login` a cada carregamento da página.
+- **Observação:** as senhas de GPON, Mikrotik 1, Mikrotik 2 e Almoxerifado deixaram de ser solicitadas no início da sessão; elas continuam usando o valor definido em `js/credentials.js` (ou o último valor salvo em sessões anteriores ao antigo modal).
+
+---
 
 ```
 index.html                    # Esqueleto da página + modais + container de toasts
